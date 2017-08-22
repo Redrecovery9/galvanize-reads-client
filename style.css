@@ -10,12 +10,17 @@
   align-items: center;
 }
 
-.book-image {
+.image {
  max-width: 30em;
  height: auto;
 }
 
-.author-image {
-  max-width: 30em;
+.book-image {
+  max-width: 6.9em;
   height: auto;
+}
+
+.book-card-row {
+  display: flex;
+  justify-content: space-around;
 }
