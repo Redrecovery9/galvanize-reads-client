@@ -1,0 +1,21 @@
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5%
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-image {
+ max-width: 30em;
+ height: auto;
+}
+
+.author-image {
+  max-width: 30em;
+  height: auto;
+}
