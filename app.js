@@ -9,6 +9,17 @@ $(document).ready(function() {
   $.get(baseURL + `books`)
   .then(bookTable)
 
+  $.get(baseURL + `authors`)
+  .then((data) => {
+    const reads = data.author
+    for (var i = 0; i < reads.length; i++) {
+      let first = reads[i].first
+      let last = reads[i].last
+      let id = reads[i].id
+      $('#add-author').append(new Option(first + ' ' + last, id))
+    }
+  })
+
   $('.add-book-save').click((event) => {
     event.preventDefault()
 
