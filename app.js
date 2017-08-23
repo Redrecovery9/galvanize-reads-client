@@ -30,7 +30,6 @@ $(document).ready(function() {
       url: $('#add-url').val(),
       author_id: $('#add-author').val()
     }
-    console.log(data);
 
     $.post(baseURL + `books/new`, data)
       .then(newPost => {
