@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 
 
-  $.get(localURL + `books`)
+  $.get(baseURL + `books`)
   .then(bookTable)
 
   $('.add-book-save').click((event) => {
@@ -19,9 +19,9 @@ $(document).ready(function() {
       url: $('#add-url').val()
     }
 
-    $.post(localURL + `books/new`, data)
+    $.post(baseURL + `books/new`, data)
       .then(newPost => {
-        $.get(localURL + `books`)
+        $.get(baseURL + `books`)
         .then(bookTable)
       })
   })
@@ -38,11 +38,11 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url: localURL +`books/${parseInt(id)}/edit`,
+      url: baseURL +`books/${parseInt(id)}/edit`,
       method: 'PUT',
       data: data,
       success: function(data) {
-        $.get(localURL + `books`)
+        $.get(baseURL + `books`)
         .then(bookTable)
       }
     });
@@ -91,7 +91,7 @@ $(document).ready(function() {
     $('.edit-button-book').click((event) => {
       event.preventDefault()
       let target = event.target.id;
-      $.get(localURL + `books/${target}`)
+      $.get(baseURL + `books/${target}`)
       .then((editBForm) => {
         let title = editBForm.book[0].title
         let genre = editBForm.book[0].genre
@@ -111,17 +111,17 @@ $(document).ready(function() {
       let target = event.target.id;
 
       $.ajax({
-        url: localURL + `books/${target}/edit`,
+        url: baseURL + `books/${target}/edit`,
         method: 'DELETE',
         success: function(data) {
-          $.get(localURL + `books`)
+          $.get(baseURL + `books`)
           .then(bookTable)
         }
       });
     })
   }
 
-  $.get(localURL + `authors`)
+  $.get(baseURL + `authors`)
   .then(authorTable)
 
   $('.put-author-save').click((event) => {
@@ -136,11 +136,11 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url: localURL +`authors/${parseInt(id)}/edit`,
+      url: baseURL +`authors/${parseInt(id)}/edit`,
       method: 'PUT',
       data: data,
       success: function(data) {
-        $.get(localURL + `authors`)
+        $.get(baseURL + `authors`)
         .then(authorTable)
       }
     });
@@ -156,9 +156,9 @@ $(document).ready(function() {
       url: $('#add-url').val()
     }
 
-    $.post(localURL + `authors/new`, data)
+    $.post(baseURL + `authors/new`, data)
       .then(newPost => {
-        $.get(localURL + `authors`)
+        $.get(baseURL + `authors`)
         .then(authorTable)
       })
   })
@@ -204,7 +204,7 @@ $(document).ready(function() {
     $('.edit-button-author').click((event) => {
       event.preventDefault()
       let target = event.target.id;
-      $.get(localURL + `authors/${target}`)
+      $.get(baseURL + `authors/${target}`)
       .then((editAForm) => {
         let first = editAForm.author[0].first
         let last = editAForm.author[0].last
@@ -224,10 +224,10 @@ $(document).ready(function() {
       let target = event.target.id;
 
       $.ajax({
-        url: localURL + `authors/${target}/edit`,
+        url: baseURL + `authors/${target}/edit`,
         method: 'DELETE',
         success: function(data) {
-          $.get(localURL + `authors`)
+          $.get(baseURL + `authors`)
           .then(authorTable)
         }
       });
