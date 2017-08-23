@@ -21,13 +21,96 @@
           <li class="nav-item active">
             <a class="nav-link" href="authors.html">Author <span class="sr-only"></span></a>
           </li>
+          <li class='nav-item'>
+            <button type="button" class="btn btn-default add-button" data-toggle="modal" data-target="#postModal">Add an Author</button>
+          </li>
       </div>
     </nav>
       <div class="container">
-          <div class="row author-card-row">
+        <div class="row author-card-row">
 
+        </div>
+      </div>
+      <div class="modal fade" id="postModalAuthor" tabindex="-1" role="dialog" aria-labelledby="postModalAuthorLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="postModalAuthorLabel">Add New author</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class='form'>
+                <div class='row'>
+                  <div class='col'>
+                    <div class="form-group">
+                      <label for="edit-first">First Name</label>
+                      <input  class="form-control" id="edit-first" value="">
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-last">Last Name</label>
+                      <input  class="form-control" id="edit-last" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col'>
+                    <div class="form-group">
+                      <label for="edit-bio">Biography</label>
+                      <textarea class="form-control" id="edit-bio" rows="5" value=''></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="edit-photo">Photo URL</label>
+                      <input  class="form-control" id="edit-photo" value="">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id='saveButton' type="button" name='' class="btn btn-primary put-author-save" data-dismiss="modal">Save changes</button>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add an Author</h4>
+          </div>
+          <div class="modal-body">
+            <form class='form'>
+              <div class="form-group">
+                <label for="add-first">First Name</label>
+                <input  class="form-control" id="add-first" value="">
+              </div>
+              <div class="form-group">
+                <label for="add-last">Last Name</label>
+                <input  class="form-control" id="add-last" value="">
+              </div>
+              <div class="form-group">
+                <label for="add-bio">Biography</label>
+                <textarea class="form-control" id="add-bio" rows="5" value=''></textarea>
+              </div>
+              <div class="form-group">
+                <label for="add-url">Photo</label>
+                <input  class="form-control" id="add-url" value="">
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default add-author-save" data-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 

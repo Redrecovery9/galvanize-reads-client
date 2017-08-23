@@ -3,12 +3,55 @@ const localURL = `http://localhost:1995/`
 
 
 $(document).ready(function() {
+
+
+
   $.get(localURL + `books`)
   .then(bookTable)
+
+  $('.add-book-save').click((event) => {
+    event.preventDefault()
+
+    let data = {
+      title: $('#add-title').val(),
+      genre: $('#add-genre').val(),
+      description: $('#add-description').val(),
+      url: $('#add-url').val()
+    }
+
+    $.post(localURL + `books/new`, data)
+      .then(newPost => {
+        $.get(localURL + `books`)
+        .then(bookTable)
+      })
+  })
+
+  $('.put-book-save').click((event) => {
+    event.preventDefault()
+    let id = event.target.name
+
+    let data = {
+      title: $('#edit-title').val(),
+      genre: $('#edit-genre').val(),
+      description: $('#edit-description').val(),
+      url: $('#edit-photo').val()
+    }
+
+    $.ajax({
+      url: localURL +`books/${parseInt(id)}/edit`,
+      method: 'PUT',
+      data: data,
+      success: function(data) {
+        $.get(localURL + `books`)
+        .then(bookTable)
+      }
+    });
+  })
 
   function bookTable(data) {
     const reads = data.book
 
+    $('.book-card-row').empty()
     for (var i = 0; i < reads.length; i++) {
       let id = reads[i].id
       let title = reads[i].title
@@ -26,25 +69,104 @@ $(document).ready(function() {
         return arr.join(', ')
       }
       $('.book-card-row').append(
-      `<div class="card book-card">
-          <img class='book-image' src="${photo}">
-          <h3 class="card-text">${title}</h3>
-          <p>By: ${name()}</p>
-          <p>${genre}</p>
-          <p>${info}</p>
-          <div class='${id}'>
+      `<div class="col-sm-6">
+        <div class="card-deck">
+          <div class="card book-card">
+            <img class="card-img-top author-image" src="${photo}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">${title}</h4>
+              <p class="card-text">${name()}</p>
+              <p class="card-text">${genre}</p>
+              <p class="card-text">${info}</p>
+              <div class='buttons'>
+              <button id="${id}" type="button" class="btn btn-secondary edit-button-book" data-toggle="modal" data-target="#postModalBook">Edit</button>
+              <button id="${id}" type="button" class="btn btn-secondary delete-button-book">Delete</button>
+              </div>
+            </div>
           </div>
-        </div>`
+        </div>
+      </div>`
       );
     }
+    $('.edit-button-book').click((event) => {
+      event.preventDefault()
+      let target = event.target.id;
+      $.get(localURL + `books/${target}`)
+      .then((editBForm) => {
+        let title = editBForm.book[0].title
+        let genre = editBForm.book[0].genre
+        let description = editBForm.book[0].description
+        let photo = editBForm.book[0].url
+        let id = editBForm.book[0].id
+
+        let $title = $('#edit-title').val(`${title}`)
+        let $genre = $('#edit-genre').val(`${genre}`)
+        let $description = $('#edit-description').val(`${description}`)
+        let $photo = $('#edit-photo').val(`${photo}`)
+        $('#saveButton').attr('name', id)
+      })
+    })
+    $('.delete-button-book').click((event) => {
+      event.preventDefault()
+      let target = event.target.id;
+
+      $.ajax({
+        url: localURL + `books/${target}/edit`,
+        method: 'DELETE',
+        success: function(data) {
+          $.get(localURL + `books`)
+          .then(bookTable)
+        }
+      });
+    })
   }
 
   $.get(localURL + `authors`)
   .then(authorTable)
 
+  $('.put-author-save').click((event) => {
+    event.preventDefault()
+    let id = event.target.name
+
+    let data = {
+      first: $('#edit-first').val(),
+      last: $('#edit-last').val(),
+      biography: $('#edit-bio').val(),
+      url: $('#edit-photo').val()
+    }
+
+    $.ajax({
+      url: localURL +`authors/${parseInt(id)}/edit`,
+      method: 'PUT',
+      data: data,
+      success: function(data) {
+        $.get(localURL + `authors`)
+        .then(authorTable)
+      }
+    });
+  })
+
+  $('.add-author-save').click((event) => {
+    event.preventDefault()
+
+    let data = {
+      first: $('#add-first').val(),
+      last: $('#add-last').val(),
+      biography: $('#add-bio').val(),
+      url: $('#add-url').val()
+    }
+
+    $.post(localURL + `authors/new`, data)
+      .then(newPost => {
+        $.get(localURL + `authors`)
+        .then(authorTable)
+      })
+  })
+
   function authorTable(data) {
     const reads = data.author
 
+    $('.author-card-row').empty()
     for (var i = 0; i < reads.length; i++) {
       let id = reads[i].id
       let first = reads[i].first
@@ -61,13 +183,54 @@ $(document).ready(function() {
         return arr.join(' ,')
       }
       $('.author-card-row').append(
-      `<div class="card book-card">
-          <img class='book-image' src="${photo}">
-          <h3 class="card-text">${first} ${last}</h3>
-          <p>${biography}</p>
-          <p>${bookTitle()}</p>
-        </div>`
+      `<div class="col-sm-6">
+        <div class="card-deck">
+          <div class="card author-card">
+            <img class="card-img-top author-image" src="${photo}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">${first} ${last}</h4>
+              <p class="card-text">${biography}</p>
+              <p class="card-text">${bookTitle()}</p>
+              <div class='buttons'>
+              <button id="${id}" type="button" class="btn btn-secondary edit-button-author"  data-toggle="modal" data-target="#postModalAuthor">Edit</button>
+              <button id="${id}" type="button" class="btn btn-secondary delete-button-author">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
       );
     }
+    $('.edit-button-author').click((event) => {
+      event.preventDefault()
+      let target = event.target.id;
+      $.get(localURL + `authors/${target}`)
+      .then((editAForm) => {
+        let first = editAForm.author[0].first
+        let last = editAForm.author[0].last
+        let biography = editAForm.author[0].biography
+        let photo = editAForm.author[0].url
+        let id = editAForm.author[0].id
+
+        let $first = $('#edit-first').val(`${first}`)
+        let $last = $('#edit-last').val(`${last}`)
+        let $bio = $('#edit-bio').val(`${biography}`)
+        let $photo = $('#edit-photo').val(`${photo}`)
+        $('#saveButton').attr('name', id)
+      })
+    })
+    $('.delete-button-author').click((event) => {
+      event.preventDefault()
+      let target = event.target.id;
+
+      $.ajax({
+        url: localURL + `authors/${target}/edit`,
+        method: 'DELETE',
+        success: function(data) {
+          $.get(localURL + `authors`)
+          .then(authorTable)
+        }
+      });
+    })
   }
 })
