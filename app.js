@@ -34,16 +34,9 @@ $(document).ready(function() {
 
     $.post(baseURL + `books/new`, data)
       .then(newPost => {
-        let ids = {
-          author_id: data.author_id,
-          book_id: newPost[0].id
-        }
-        $.post(baseURL + `publish`, ids)
-        .then(published => {
-          $.get(baseURL + `books`)
+        $.get(baseURL + `books`)
         .then(bookTable)
       })
-    })
   })
 
   $('.put-book-save').click((event) => {
