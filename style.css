@@ -1,3 +1,7 @@
+.headerpic {
+  max-width: 5em;
+}
+
 .button-row {
   display: flex;
   justify-content: space-between;
@@ -18,9 +22,4 @@
 .book-image {
   max-width: 6.9em;
   height: auto;
-}
-
-.book-card-row {
-  display: flex;
-  justify-content: space-around;
 }

@@ -29,8 +29,11 @@ $(document).ready(function() {
       `<div class="card book-card">
           <img class='book-image' src="${photo}">
           <h3 class="card-text">${title}</h3>
-          <p>${name()}</p>
+          <p>By: ${name()}</p>
+          <p>${genre}</p>
           <p>${info}</p>
+          <div class='${id}'>
+          </div>
         </div>`
       );
     }
@@ -48,20 +51,21 @@ $(document).ready(function() {
       let last = reads[i].last
       let biography = reads[i].biography
       let photo = reads[i].url
-      let author = reads[i].author
-      // function name(authors) {
-      //   for (var i = 0; i < author.length; i++) {
-      //     let first = author[i].first
-      //     let last = author[i].last
-      //     return `${first} ${last}`
-      //   }
-      // }
-      $('.book-card-row').append(
+      let book = reads[i].book
+      function bookTitle(books) {
+        const arr = []
+        for (var i = 0; i < book.length; i++) {
+          let first = book[i].title
+          arr.push(`${first}`)
+        }
+        return arr.join(' ,')
+      }
+      $('.author-card-row').append(
       `<div class="card book-card">
           <img class='book-image' src="${photo}">
           <h3 class="card-text">${first} ${last}</h3>
-          <p></p>
           <p>${biography}</p>
+          <p>${bookTitle()}</p>
         </div>`
       );
     }
