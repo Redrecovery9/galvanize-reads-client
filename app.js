@@ -27,14 +27,23 @@ $(document).ready(function() {
       title: $('#add-title').val(),
       genre: $('#add-genre').val(),
       description: $('#add-description').val(),
-      url: $('#add-url').val()
+      url: $('#add-url').val(),
+      author_id: $('#add-author').val()
     }
+    console.log(data);
 
     $.post(baseURL + `books/new`, data)
       .then(newPost => {
-        $.get(baseURL + `books`)
+        let ids = {
+          author_id: data.author_id,
+          book_id: newPost[0].id
+        }
+        $.post(baseURL + `publish`, ids)
+        .then(published => {
+          $.get(baseURL + `books`)
         .then(bookTable)
       })
+    })
   })
 
   $('.put-book-save').click((event) => {
