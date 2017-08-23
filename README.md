@@ -24,3 +24,5 @@ Galvanize Reads is a CRUD app that allows users to view a library of books and a
 - jQuery
 
 ![Website](assets/Website.png)
+![Book Page](assets/bookPage.png)
+![Author Page](assets/authorPage.png)
